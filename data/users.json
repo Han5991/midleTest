@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Mr",
+    "firstName": "Frank",
+    "lastName": "Murphy",
+    "email": "frank.murphy@rustvale.com",
+    "role": "Admin",
+    "password": "sue123",
+    "id": 1,
+    "dateCreated": "2021-04-08T05:33:05.184Z",
+    "dateUpdated": "2022-10-19T11:33:42.095Z"
+  },
+  {
+    "title": "Mr",
+    "firstName": "123",
+    "lastName": "123",
+    "email": "123@123.com",
+    "role": "Admin",
+    "password": "123456",
+    "id": 2,
+    "dateCreated": "2022-10-19T11:30:30.871Z",
+    "dateUpdated": "2022-10-19T11:33:00.611Z"
+  },
+  {
+    "title": "Mr",
+    "firstName": "Han",
+    "lastName": "Sang_wook",
+    "email": "admin@superjo.in",
+    "role": "Admin",
+    "password": "123456",
+    "id": 3,
+    "dateCreated": "2021-04-08T05:33:05.184Z",
+    "dateUpdated": "2022-10-19T11:33:42.095Z"
+  },
+  {
+    "title": "Mr",
+    "firstName": "1",
+    "lastName": "1",
+    "email": "1@1.com",
+    "role": "User",
+    "password": "123456",
+    "id": 4,
+    "dateCreated": "2022-10-24T11:42:49.509Z",
+    "dateUpdated": "2022-10-24T11:42:49.509Z"
+  },
+  {
+    "title": "Mr",
+    "firstName": "1",
+    "lastName": "1",
+    "email": "admin@superjo.in",
+    "role": "User",
+    "password": "admin1234!",
+    "id": 5,
+    "dateCreated": "2022-10-24T11:42:49.509Z",
+    "dateUpdated": "2022-10-24T11:42:49.509Z"
+  }
+]

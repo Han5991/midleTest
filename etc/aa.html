@@ -1,0 +1,206 @@
+<html>
+<head>
+  <script src='web3.min.js'></script>
+  <script type='text/javascript'>
+    let accounts;
+    let contractInstance;
+    let resultBox;
+    window.addEventListener('load', async () => {
+      const btn = document.getElementById('btn');
+      btn.addEventListener('click', btnClicked);
+
+      const setMsg2 = document.getElementById('setMsg2');
+      setMsg2.addEventListener('click', setMsg2Clicked);
+
+      const setCounter = document.getElementById('setCounter');
+      setCounter.addEventListener('click', setCounterClicked);
+
+      const counter = document.getElementById('counter');
+      counter.addEventListener('click', counterClicked);
+
+      const getMsg2 = document.getElementById('getMsg2');
+      getMsg2.addEventListener('click', getMsg2Clicked);
+
+      const msg1 = document.getElementById('msg1');
+      msg1.addEventListener('click', msg1Clicked);
+
+      const owner = document.getElementById('owner');
+      owner.addEventListener('click', ownerClicked);
+
+      resultBox = document.getElementById('resultBox');
+    });
+
+    async function btnClicked () {
+      accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const showAccount = document.querySelector('.showAccount');
+
+      showAccount.innerHTML = accounts[0];
+
+      const abiobj = [
+        {
+          'inputs': [
+            {
+              'internalType': 'string',
+              'name': '_msg1',
+              'type': 'string',
+            },
+          ],
+          'stateMutability': 'nonpayable',
+          'type': 'constructor',
+        },
+        {
+          'inputs': [],
+          'name': 'counter',
+          'outputs': [
+            {
+              'internalType': 'uint8',
+              'name': '',
+              'type': 'uint8',
+            },
+          ],
+          'stateMutability': 'view',
+          'type': 'function',
+        },
+        {
+          'inputs': [],
+          'name': 'getMsg2',
+          'outputs': [
+            {
+              'internalType': 'string',
+              'name': '',
+              'type': 'string',
+            },
+          ],
+          'stateMutability': 'view',
+          'type': 'function',
+        },
+        {
+          'inputs': [],
+          'name': 'msg1',
+          'outputs': [
+            {
+              'internalType': 'string',
+              'name': '',
+              'type': 'string',
+            },
+          ],
+          'stateMutability': 'view',
+          'type': 'function',
+        },
+        {
+          'inputs': [],
+          'name': 'owner',
+          'outputs': [
+            {
+              'internalType': 'address',
+              'name': '',
+              'type': 'address',
+            },
+          ],
+          'stateMutability': 'view',
+          'type': 'function',
+        },
+        {
+          'inputs': [],
+          'name': 'setCounter',
+          'outputs': [],
+          'stateMutability': 'nonpayable',
+          'type': 'function',
+        },
+        {
+          'inputs': [
+            {
+              'internalType': 'string',
+              'name': '_msg2',
+              'type': 'string',
+            },
+          ],
+          'name': 'setMsg2',
+          'outputs': [],
+          'stateMutability': 'nonpayable',
+          'type': 'function',
+        },
+      ];
+      const address = '0xD27A61d7802A048A864EEDD4e59a9B2B90dC59B4';
+      window.web3 = new Web3(window.ethereum);
+      contractInstance = await new window.web3.eth.Contract(abiobj, address);
+      const value = await contractInstance.methods.counter().call();
+      alert(value);
+    }
+
+    async function setMsg2Clicked () {
+      if (contractInstance != null) {
+        try {
+          let valtxt = document.getElementById('msg2');
+          let val = valtxt.value;
+          let value = await contractInstance.methods.setMsg2(val).send({ from: accounts[0] });
+          alert(value);
+          resultBox.innerHTML = JSON.stringify(value);
+        } catch {
+          resultBox.innerHTML = 'Error Occured';
+        }
+      }
+    }
+
+    function setCounterClicked () {
+      if (contractInstance != null) {
+        contractInstance.methods.setCounter().send({ from: accounts[0] })
+          .on('receipt', function(receipt) {
+            resultBox.innerHTML = 'receipt: ' + JSON.stringify(receipt);
+          })
+          .on('confirmation', function(confirmationNumber, receipt) {
+            resultBox.innerHTML = 'confirmation: ' + confirmationNumber + ' & ' + receipt;
+          })
+          .on('transactionHash', function(transactionHash) {
+            resultbox.innerHTML = 'transactionHash: ' + transactionHash;
+          })
+          .on('error', function(error) {
+            resultBox.innerHTML = 'error : ' + error;
+          });
+      }
+    }
+
+    async function counterClicked () {
+      const value = await contractInstance.methods.counter().call();
+      resultBox.innerHTML = value;
+    }
+
+    async function getMsg2Clicked () {
+      const value = await contractInstance.methods.getMsg2().call();
+      resultBox.innerHTML = value;
+    }
+
+    async function msg1Clicked () {
+      const value = await contractInstance.methods.msg1().call();
+      resultBox.innerHTML = value;
+    }
+
+    async function ownerClicked () {
+      const value = await contractInstance.methods.owner().call();
+      resultBox.innerHTML = value;
+    }
+
+  </script>
+</head>
+<body>
+<h1> Event Test </h1>
+<br />
+<input type='button' id='btn' value='click'>
+<h2>Account: <span class='showAccount'></span></h2>
+
+<input type='button' id='setMsg2' value='setMsg2()'>
+<input type='text' id='msg2' value=''>
+<br />
+<input type='button' id='setCounter' value='setCounter()'>
+<br />
+<input type='button' id='counter' value='counter'>
+<br />
+<input type='button' id='getMsg2' value='getMsg2'>
+<br />
+<input type='button' id='msg1' value='msg1'>
+<br />
+<input type='button' id='owner' value='owner'>
+<br />
+Result: <span id='resultBox'> </span>
+</body>
+</html>
