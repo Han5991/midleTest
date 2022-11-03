@@ -7,6 +7,8 @@ import {
   setattribute,
 } from 'services/reg.service';
 
+import { checkGoalReached } from 'services/cloud.service';
+
 export { AddEdit };
 
 function AddEdit() {
@@ -47,13 +49,9 @@ function AddEdit() {
         <button
           type="button"
           className="btn btn-primary mr-2 mb-2"
-          id="changeOwner"
+          id="checkGoalReached"
           onClick={async event => {
-            const result = await setattribute(
-              amount,
-              investorsIndex,
-              event.currentTarget.id,
-            );
+            const result = await checkGoalReached(event.currentTarget.id);
             setResult(JSON.stringify(result));
           }}
         >

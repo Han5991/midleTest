@@ -23,6 +23,14 @@ const setattribute = async (name, attr, id) => {
 
 async function setAddr(name, address) {}
 
+const checkGoalReached = async id => {
+  const accounts = await getAccounts();
+  const methods = await cloud();
+  return await methods[id].send({
+    from: accounts[0],
+  });
+};
+
 const setoneval = async (name, id) => {
   const accounts = await getAccounts();
   const methods = await nameregistry();
@@ -41,4 +49,10 @@ async function showvalues(id) {
   return await methods[id]().call();
 }
 
-module.exports = { setoneval, oneargfunc, showvalues, setattribute };
+module.exports = {
+  setoneval,
+  oneargfunc,
+  showvalues,
+  setattribute,
+  checkGoalReached,
+};
