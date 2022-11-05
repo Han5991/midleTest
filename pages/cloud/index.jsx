@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 
 import { Link } from 'components';
 import { userService } from 'services';
+import { useRouter } from 'next/router';
 
 export default Index;
 
 function Index() {
   const [users, setUsers] = useState(null);
+  const { pathname } = useRouter();
 
   useEffect(() => {
     userService.getAll().then(x => setUsers(x));
@@ -29,7 +31,7 @@ function Index() {
   return (
     <div>
       <h1>Users</h1>
-      <Link href="/cloud/add" className="btn btn-sm btn-success mb-2">
+      <Link href={`${pathname}/add`} className="btn btn-sm btn-success mb-2">
         Add User
       </Link>
       <table className="table table-striped">

@@ -198,7 +198,7 @@ export default {
         type: 'function',
       },
     ],
-    address: '0xAa6b018850B570eA49B6659c7AD475c6Cd772306',
+    address: '0xafe43515BEE06c9bEaBCA60bAb78a5C15d8900fB',
   },
   cloud: {
     abi: [
@@ -368,6 +368,6 @@ export default {
         type: 'function',
       },
     ],
-    address: '0xdD6FcbE7dCD04c7CA8729103Adc16cf3F1EB2C11',
+    address: '0x05061b7331E37C7FC912075719af8c48c5F1b1EB',
   },
 };

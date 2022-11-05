@@ -1,5 +1,5 @@
 import { NavLink } from '.';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usersRepo } from 'helpers';
 
 export { Nav };
@@ -12,21 +12,27 @@ function Nav() {
     setUser(userData);
   }, []);
 
+  const list = useMemo(() => {
+    return [
+      { href: '/', pathName: 'Home' },
+      { href: '/nameregistry', pathName: 'Nameregistry' },
+      { href: '/cloud', pathName: 'Cloud' },
+    ];
+  }, []);
+
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark">
       <div className="navbar-nav">
-        <NavLink href="/" exact className="nav-item nav-link">
-          Home
-        </NavLink>
-        <NavLink href="/product" className="nav-item nav-link">
-          Product
-        </NavLink>
-        <NavLink href="/nameregistry" className="nav-item nav-link">
-          Nameregistry
-        </NavLink>
-        <NavLink href="/cloud" className="nav-item nav-link">
-          Cloud
-        </NavLink>
+        {list.map((item, index) => (
+          <NavLink
+            key={index}
+            href={`${item.href}`}
+            exact
+            className="nav-item nav-link"
+          >
+            {item.pathName}
+          </NavLink>
+        ))}
         {user?.role === 'Admin' && (
           <NavLink href="/users" className="nav-item nav-link">
             Users
